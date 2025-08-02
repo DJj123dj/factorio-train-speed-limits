@@ -1,3 +1,5 @@
+<img src="./resources/thumbnail.png" width="300"></img>
+
 # Train Speed Limits
 The **Train Speed Limits** mod lets you assign a maximum speed (in km/h) to **train signals**, ensuring player safety around intersections and train stations.
 
