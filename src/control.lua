@@ -59,22 +59,24 @@ script.on_nth_tick(5,function(event)
         local signal = signals[1]
         if (signal and signal.valid) then
             local originalRail = signal.get_connected_rails()[1]
-            local rails = {originalRail}
+            if (originalRail) then
+                local rails = {originalRail}
 
-            for _, dir in pairs({defines.rail_direction.front,defines.rail_direction.back}) do
-                for _, connect in pairs({defines.rail_connection_direction.straight,defines.rail_connection_direction.left,defines.rail_connection_direction.right}) do
-                    local neighbour = originalRail.get_connected_rail({rail_direction=dir,rail_connection_direction=connect})
-                    if (neighbour) then table.insert(rails,neighbour) end
-                end
-            end
-            for _, rail in pairs(rails) do
-                if (rail and rail.is_rail_in_same_rail_block_as(train.front_end.rail)) then
-                    local signalData = storage.speedLimits[signal.unit_number]
-                    if (signalData and signalData.enabled) then
-                        -- convert km/h to m/tick (/216)
-                        storage.trainLimits[train.id] = {enabled=(signalData.limit > 0),maxSpeed=signalData.limit/216}
+                for _, dir in pairs({defines.rail_direction.front,defines.rail_direction.back}) do
+                    for _, connect in pairs({defines.rail_connection_direction.straight,defines.rail_connection_direction.left,defines.rail_connection_direction.right}) do
+                        local neighbour = originalRail.get_connected_rail({rail_direction=dir,rail_connection_direction=connect})
+                        if (neighbour) then table.insert(rails,neighbour) end
                     end
-                    break
+                end
+                for _, rail in pairs(rails) do
+                    if (rail and rail.is_rail_in_same_rail_block_as(train.front_end.rail)) then
+                        local signalData = storage.speedLimits[signal.unit_number]
+                        if (signalData and signalData.enabled) then
+                            -- convert km/h to m/tick (/216)
+                            storage.trainLimits[train.id] = {enabled=(signalData.limit > 0),maxSpeed=signalData.limit/216}
+                        end
+                        break
+                    end
                 end
             end
         end

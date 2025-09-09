@@ -1,0 +1,10 @@
+---------------------------------------------------------------------------------------------------
+Version: 1.0.1
+Date: 09.09.2025
+  Bugfixes:
+    - Fixed crash when train drives past signal/rail which is planned for or currently being destroyed.
+---------------------------------------------------------------------------------------------------
+Version: 1.0.0
+Date: 02.08.2025
+  Major Features:
+    - Initial release.
